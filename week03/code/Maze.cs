@@ -1,22 +1,16 @@
 /// <summary>
 /// Defines a maze using a dictionary. The dictionary is provided by the
-/// user when the Maze object is created. The dictionary will contain the
-/// following mapping:
+/// user when the Maze object is created. The dictionary contains:
 ///
-/// (x,y) : [left, right, up, down]
+/// (x, y) : [left, right, up, down]
 ///
-/// 'x' and 'y' are integers and represents locations in the maze.
-/// 'left', 'right', 'up', and 'down' are boolean are represent valid directions
-///
-/// If a direction is false, then we can assume there is a wall in that direction.
-/// If a direction is true, then we can proceed.  
-///
-/// If there is a wall, then throw an InvalidOperationException with the message "Can't go that way!".  If there is no wall,
-/// then the 'currX' and 'currY' values should be changed.
+/// The Boolean values indicate whether movement in each direction
+/// is allowed.
 /// </summary>
 public class Maze
 {
     private readonly Dictionary<ValueTuple<int, int>, bool[]> _mazeMap;
+
     private int _currX = 1;
     private int _currY = 1;
 
@@ -25,41 +19,68 @@ public class Maze
         _mazeMap = mazeMap;
     }
 
-    // TODO Problem 4 - ADD YOUR CODE HERE
     /// <summary>
-    /// Check to see if you can move left.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Move one position to the left when the path is open.
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        // Index 0 represents movement to the left.
+        bool canMoveLeft = _mazeMap[(_currX, _currY)][0];
+
+        if (!canMoveLeft)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+
+        _currX--;
     }
 
     /// <summary>
-    /// Check to see if you can move right.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Move one position to the right when the path is open.
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        // Index 1 represents movement to the right.
+        bool canMoveRight = _mazeMap[(_currX, _currY)][1];
+
+        if (!canMoveRight)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+
+        _currX++;
     }
 
     /// <summary>
-    /// Check to see if you can move up.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Move one position upward when the path is open.
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        // Index 2 represents movement upward.
+        bool canMoveUp = _mazeMap[(_currX, _currY)][2];
+
+        if (!canMoveUp)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+
+        _currY--;
     }
 
     /// <summary>
-    /// Check to see if you can move down.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Move one position downward when the path is open.
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        // Index 3 represents movement downward.
+        bool canMoveDown = _mazeMap[(_currX, _currY)][3];
+
+        if (!canMoveDown)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+
+        _currY++;
     }
 
     public string GetStatus()
