@@ -1,45 +1,73 @@
 public class Node
 {
     public int Data { get; set; }
-    public Node? Right { get; private set; }
-    public Node? Left { get; private set; }
+    public Node? Left { get; set; }
+    public Node? Right { get; set; }
 
     public Node(int data)
     {
-        this.Data = data;
+        Data = data;
     }
 
+    /// <summary>
+    /// Insert a value into the correct location in the tree.
+    /// Duplicate values are ignored.
+    /// </summary>
     public void Insert(int value)
     {
-        // TODO Start Problem 1
+        if (value < Data)
+        {
+            if (Left is null)
+            {
+                Left = new Node(value);
+            }
+            else
+            {
+                Left.Insert(value);
+            }
+        }
+        else if (value > Data)
+        {
+            if (Right is null)
+            {
+                Right = new Node(value);
+            }
+            else
+            {
+                Right.Insert(value);
+            }
+        }
+
+        // If value equals Data, do nothing because the tree
+        // should contain only unique values.
+    }
+
+    /// <summary>
+    /// Search recursively for a value in the tree.
+    /// </summary>
+    public bool Contains(int value)
+    {
+        if (value == Data)
+        {
+            return true;
+        }
 
         if (value < Data)
         {
-            // Insert to the left
-            if (Left is null)
-                Left = new Node(value);
-            else
-                Left.Insert(value);
+            return Left is not null && Left.Contains(value);
         }
-        else
-        {
-            // Insert to the right
-            if (Right is null)
-                Right = new Node(value);
-            else
-                Right.Insert(value);
-        }
+
+        return Right is not null && Right.Contains(value);
     }
 
-    public bool Contains(int value)
-    {
-        // TODO Start Problem 2
-        return false;
-    }
-
+    /// <summary>
+    /// Calculate the height of this node and its subtrees.
+    /// </summary>
     public int GetHeight()
     {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        int leftHeight = Left?.GetHeight() ?? 0;
+        int rightHeight = Right?.GetHeight() ?? 0;
+
+        return 1 + Math.Max(leftHeight, rightHeight);
     }
 }
